@@ -43,3 +43,10 @@ See [THEORY.md](THEORY.md), [TAXONOMY.md](TAXONOMY.md), and [EQUATION_INDEX.md](
 ## Edition principle
 
 The original work deliberately crosses chemistry, physics, cognition, alchemy, poetry, and speculative metaphysics. This edition preserves that character while making the epistemic boundary explicit: metaphor is labeled metaphor; a model is labeled a model; an empirical claim requires evidence.
+
+
+## Full-edition additions
+
+The repository now also includes [OCTAVES.md](OCTAVES.md), preserving the manuscript's actual Octave 0–XV rosters; [elements/conventional/ALL_118.md](elements/conventional/ALL_118.md), providing a complete atomic-number harmonic reference; and [elements/nonconventional/EXPANDED.md](elements/nonconventional/EXPANDED.md), expanding the full invented taxonomy with named EFMW observables and new descriptive text.
+
+The manuscript's literary order is intentionally not identical to atomic-number order. OCTAVES.md preserves the book; ALL_118.md supplies the complete mathematical reference.
