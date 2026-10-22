@@ -1,6 +1,6 @@
 # Alchemy of Emergence — Lean 4 mathematical core
 
-**Candidate formalization, not yet independently compiled at publication.** Uses Lean 4.28.0 + pinned Mathlib revision. No `sorry` or additional axiom declarations.
+**Candidate formalization; clean GitHub Actions compilation has not yet been confirmed.** Uses Lean 4.28.0 and an exact Mathlib commit pinned in both Lake configuration and a committed resolved `lake-manifest.json`. No `sorry` or additional axiom declarations.
 
 ## Verified propositions targeted
 
@@ -16,12 +16,12 @@
 
 ```bash
 cd formal
-lake update
 lake exe cache get
+lake build AlchemyHarmonics
 lake env lean AlchemyHarmonics.lean
 ```
 
-Before issuing a *verified formal* release, commit the generated `lake-manifest.json`, freeze source commit SHA, perform a clean build, and inspect the actual CI workflow status and axiom dependencies.
+The resolved `lake-manifest.json` is committed, reusing the dependency graph of the existing Monolithic-102 Lean 4.28 analysis package. Before issuing a *verified formal* release, perform a clean build, inspect CI logs and the actual proof dependencies, and pin the source commit SHA. No successful build is asserted here.
 
 ## Mathematical derivation
 
