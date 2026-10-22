@@ -58,6 +58,10 @@ The GitHub edition treats each elemental intelligence as a harmonic, projection,
 
 See [THEORY.md](THEORY.md), [TAXONOMY.md](TAXONOMY.md), and [EQUATION_INDEX.md](EQUATION_INDEX.md).
 
+## Lean mathematical formalization (candidate)
+
+The [formal Lean 4.28 / Mathlib package](formal/README.md) contains an algebraic one-spatial-direction product-rule identity, an anti-harmonic cancellation theorem, and grounding-denominator positivity. [Source](formal/AlchemyHarmonics.lean) · [CI workflow](.github/workflows/alchemy-harmonics-lean.yml). **Publication is not evidence of a successful Lean build**; independent compilation and derivative-level 3+1 formalization remain open. The symbolic/literary taxonomy is not experimentally validated by these proofs.
+
 ## Repository map
 
 - `BOOK.md` — reconstructed GitHub reading edition.
