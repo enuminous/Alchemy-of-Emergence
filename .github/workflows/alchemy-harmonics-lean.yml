@@ -1,0 +1,31 @@
+name: Alchemy harmonic algebra formalization
+on:
+  push:
+    paths:
+      - "formal/**"
+      - ".github/workflows/alchemy-harmonics-lean.yml"
+  pull_request:
+    paths:
+      - "formal/**"
+  workflow_dispatch:
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: formal
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          lake-package-directory: formal
+      - name: Fetch Mathlib cache
+        run: lake exe cache get
+      - name: Compile theorems
+        run: lake env lean AlchemyHarmonics.lean
+      - name: Reject placeholders and extra axioms
+        run: |
+          if grep -nE '^([[:space:]]*)(sorry|axiom|admit)([[:space:]]|$)' AlchemyHarmonics.lean; then exit 1; fi
