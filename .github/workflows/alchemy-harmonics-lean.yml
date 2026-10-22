@@ -1,6 +1,8 @@
-name: Alchemy harmonic algebra formalization
+name: Alchemy harmonic Lean 4.28 verification
+
 on:
   push:
+    branches: [main]
     paths:
       - "formal/**"
       - ".github/workflows/alchemy-harmonics-lean.yml"
@@ -8,6 +10,10 @@ on:
     paths:
       - "formal/**"
   workflow_dispatch:
+
+permissions:
+  contents: read
+
 jobs:
   lean:
     runs-on: ubuntu-latest
@@ -17,15 +23,30 @@ jobs:
         working-directory: formal
     steps:
       - uses: actions/checkout@v4
-      - uses: leanprover/lean-action@v1
+      - name: Install Lean 4.28
+        uses: leanprover/lean-action@v1
         with:
-          auto-config: false
-          use-github-cache: true
           lake-package-directory: formal
-      - name: Fetch Mathlib cache
-        run: lake exe cache get
-      - name: Compile theorems
-        run: lake env lean AlchemyHarmonics.lean
-      - name: Reject placeholders and extra axioms
+          auto-config: false
+          build: false
+          use-github-cache: true
+      - name: Confirm toolchain and locked manifest
         run: |
-          if grep -nE '^([[:space:]]*)(sorry|axiom|admit)([[:space:]]|$)' AlchemyHarmonics.lean; then exit 1; fi
+          lean --version
+          lake --version
+          test -s lake-manifest.json
+          grep -q '8f9d9cff6bd728b17a24e163c9402775d9e6a365' lake-manifest.json
+      - name: Load pinned Mathlib build cache
+        run: lake exe cache get
+      - name: Compile formal target
+        run: lake build AlchemyHarmonics
+      - name: Kernel-check all theorem declarations
+        run: lake env lean AlchemyHarmonics.lean
+      - name: Reject placeholders and additional axiom declarations
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|axiom|admit)([[:space:]]|$)' AlchemyHarmonics.lean; then
+            echo "Incomplete proof or added axiom" >&2
+            exit 1
+          fi
+      - name: Check no manifest drift
+        run: git diff --exit-code -- lake-manifest.json lakefile.toml lean-toolchain
