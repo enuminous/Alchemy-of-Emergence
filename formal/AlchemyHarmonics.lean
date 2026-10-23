@@ -71,5 +71,5 @@ theorem grounding_denominator_positive
     (ground eps : ℝ) (hg : 0 ≤ ground) (he : 0 < eps) :
     0 < ground + eps := add_pos_of_nonneg_of_pos hg he
 
-/-- No new elemental frequency or empirical correspondence is derived here. -/
+/- No new elemental frequency or empirical correspondence is derived here. -/
 end AlchemyOfEmergence
